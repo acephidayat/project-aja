@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Admin\ProductionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,3 +48,5 @@ Route::get('/cart', function(){
 });
 
 Route::get('/product',[ProductController::class, 'index']);
+
+Route::resource('/admin/product', ProductionController::class);
