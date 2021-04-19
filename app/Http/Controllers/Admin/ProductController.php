@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ProductionController extends Controller
+use function PHPUnit\Framework\returnSelf;
+
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,10 @@ class ProductionController extends Controller
      */
     public function index()
     {
-        return view('admin.product.index');
+        $products = Product::all();
+        return view('admin.product.index', [
+            'products'=> $products 
+        ]);
     }
 
     /**
@@ -24,7 +30,7 @@ class ProductionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.product.create');
     }
 
     /**
@@ -33,9 +39,22 @@ class ProductionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $this->validate(request(), [
+            'code'=>'required|numeric',
+            'name'=>'required',
+            'kategori'=>'required'
+        ]);
+
+        Product::create([
+            'code'=> request('code'),
+            'name'=> request('name'),
+            'category'=> request('kategori'),
+        ]);
+
+        return redirect()->to('/admin/product');
+
     }
 
     /**
@@ -57,7 +76,7 @@ class ProductionController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.product.edit');
     }
 
     /**
