@@ -44,13 +44,21 @@ class ProductController extends Controller
         $this->validate(request(), [
             'code'=>'required|numeric',
             'name'=>'required',
-            'kategori'=>'required'
+            'kategori'=>'required',
+            'photo' => 'required|image|mimes:png,jpg,jpeg'
         ]);
 
+        $extention = request('photo')->getClientOriginalExtension();
+        $imageName = time().'.'. $extention;
+        $path = public_path('/images');
+        request('photo')->move($path,$imageName);
+
+        //Upload file
         Product::create([
             'code'=> request('code'),
             'name'=> request('name'),
             'category'=> request('kategori'),
+            'photo' =>'images/'. $imageName
         ]);
 
         return redirect()->to('/admin/product');
@@ -76,7 +84,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.product.edit');
+        $product = Product::where('id', $id)->first();
+        return view('admin.product.edit',[
+            'product'=>$product
+        ]);
     }
 
     /**
@@ -86,9 +97,35 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        $this->validate(request(), [
+            'code' => 'required|numeric',
+            'name' => 'required',
+            'category' =>'required',
+        ]);
+
+        $product = Product::where( 'id', $id )->first();
+
+        if (request()->hasFile('photo')) {
+            //Delete file yang lama
+            unlink(public_path($product->photo));
+
+            //Upload file yang baru
+            $extention = request('photo')->getClientOriginalExtension();
+            $imageName = time().'.'. $extention;
+            $path = public_path('/images');
+            request('photo')->move($path, $imageName);
+        }
+
+        $product -> update([
+            'code'=> request('code'),
+            'name'=> request('name'),
+            'category'=> request('category'),
+            'photo'=> isset($path) ? 'images/' . $imageName : $product->photo
+        ]);
+
+        return redirect()->to('/admin/product');
     }
 
     /**
@@ -99,6 +136,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //product::find($id);
+        $product = Product::where('id',$id)->first();
+
+        //delete photo
+        unlink(public_path($product->photo));
+
+        $product->delete();
+
+        return redirect()->to('/admin/product');
+
     }
 }

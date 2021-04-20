@@ -8,19 +8,19 @@
         </div>
     @endforeach
     <h1 class="mb-4">Add Product</h1>
-    <form action="/admin/product" method="POST">
+    <form action="/admin/product" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="mb-3">
         <label class="form-label">Code</label>
-        <input type="text" name="code" class="form-control">
+        <input type="text" name="code" class="form-control" value="{{ old('code') }} ">
     </div>
     <div class="mb-3">
         <label class="form-label">Product Name</label>
-        <input type="text" name="name" class="form-control">
+        <input type="text" name="name" class="form-control" value="{{ old('name') }} ">
     </div>
     <div class="mb-3">
         <label class="form-label">Category</label>
-        <input type="text" name="kategori" class="form-control">
+        <input type="text" name="kategori" class="form-control" value="{{ old('kategori') }} ">
     </div>
     <div class="mb-3">
         <label class="form-label">Photo</label>

@@ -11,7 +11,7 @@
             <th>Product Name</th>
             <th>Catagory</th>
             <th>Photo</th>
-            <th>Action</th>
+            <th colspan="2">Action</th>
         </tr>
         @foreach ($products as $product )
         <tr>
@@ -19,10 +19,18 @@
             <td>{{$product->code}}</td>
             <td>{{$product->name}}</td>
             <td>{{$product->category}}</td>
-            <td></td>
+            <td>
+                <img src="{{ asset($product->photo) }}" alt="{{ $product->name }}" style="width: 100px; height: 100px">
+            </td>
             <td>
                 <a href="/admin/product/{{$product->id}}/edit" class="btn btn-info">Edit</a>
-                <a href="" class="btn btn-danger">Delete</a>
+            </td>
+            <td>
+                <form action="/admin/product/{{$product->id}}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
             </td>
         </tr>    
         @endforeach
