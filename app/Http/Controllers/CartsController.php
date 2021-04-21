@@ -9,7 +9,7 @@ class CartsController extends Controller
 {
     public function index()
     {
-        $carts = Cart::where('paid', false)->get()->groupBy('product_id');
+        $carts = Carts::where('paid', false)->get()->groupBy('product_id');
 
         $prices = $carts->map(function ($row) {
             return $row->reduce(function ($item, $cart) {
@@ -36,8 +36,8 @@ class CartsController extends Controller
     }
     public function destroy($id)
     {
-        $carts = Cart::where('product_id', $id)->get();
-        Cart::where('id', $carts[0]->id)->first()->delete();
+        $carts = Carts::where('product_id', $id)->get();
+        Carts::where('id', $carts[0]->id)->first()->delete();
 
         // noty()->danger('Whops', 'Keranjang Belanja telah di kurangi');
         return back();

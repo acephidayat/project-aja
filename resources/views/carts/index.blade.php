@@ -1,38 +1,54 @@
 @extends('layouts.app')
 
+@section('title')
+    List All Products
+@endsection
+
 @section('content')
-<div class= "container mt-4">
-    <h1>Cart Product</h1>
-    {{-- <a href="/" class="btn btn-primary mb-4">Add Product</a> --}}
-    <table class="table table-bordered table-striped tabel-hover">
+<div class="container mt-4">
+    <h1>Cart</h1>
+    <table class="table table-bordered table-striped table-hover">
         <tr>
             <th>#</th>
-            <th>Code</th>
-            <th>Product Name</th>
-            <th>Paid</th>
-            <th>Catagory</th>
+            <th>Product</th>
+            <th>Price Each</th>
+            <th>Sub total</th>
+            <th>Quantity</th>
+            <th>Photo</th>
             <th colspan="2">Action</th>
         </tr>
-        @foreach ($Carts as $Cart )
+        @foreach($carts as $c)
+            <tr>
+                <td>{{ $loop->index + 1 }}</td>
+                <td>{{ $c[0]->product->code }} - {{ $c[0]->product->name }}</td>
+                <td style="text-align: right;">Rp. {{ number_format($c[0]->product->price, 0, ',', '.') }}</td>
+                <td style="text-align: right;">Rp. {{ number_format($c[0]->product->price * count($c), 0, ',', '.') }}</td>
+                <td>{{ count($c) }}</td>
+                <td>
+                    <img src="{{ asset($c[0]->product->photo) }}" alt="{{ $c[0]->product->name }}" style="width: 100px; height: 100px">
+                </td>
+                <td>
+                    <form action="/remove-cart/{{ $c[0]->product_id }}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
         <tr>
-            <td>{{$loop->index + 1}}</td>
-            <td>{{$Cart->code}}</td>
-            <td>{{$Cart->product_id}}</td>
-            <td>{{$Cart->paid}}</td>
-          
-            <td>
-                <a href="/admin/product/{{$product->id}}/edit" class="btn btn-info">Edit</a>
-            </td>
-            <td>
-                <form action="/admin/product/{{$product->id}}" method="POST">
-                    @method('DELETE')
-                    @csrf
-                    <button type="submit" class="btn btn-danger">Delete</button>
+            <td></td>
+            <td style="text-align: right; font-weight: bold;">Total:</td>
+            <td style="text-align: right; font-weight: bold;">Rp. {{ number_format($sub_total, 0, ',', '.') }}</td>
+            <td colspan="4">
+                <form action="/payment" method="POST">
+                    <div class="d-grid gap-2">
+                        @csrf
+                        <button type="submit" class="btn btn-primary">Bayar Sekarang</button>
+                    </div>
                 </form>
             </td>
-        </tr>    
-        @endforeach
-        
+        </tr>
     </table>
 </div>
 @endsection
