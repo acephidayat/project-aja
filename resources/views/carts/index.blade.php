@@ -2,28 +2,24 @@
 
 @section('content')
 <div class= "container mt-4">
-    <h1>Admin Product</h1>
-    <a href="/admin/product/create" class="btn btn-primary mb-4">Add Product</a>
+    <h1>Cart Product</h1>
+    {{-- <a href="/" class="btn btn-primary mb-4">Add Product</a> --}}
     <table class="table table-bordered table-striped tabel-hover">
         <tr>
             <th>#</th>
             <th>Code</th>
             <th>Product Name</th>
-            <th>Price</th>
+            <th>Paid</th>
             <th>Catagory</th>
-            <th>Photo</th>
             <th colspan="2">Action</th>
         </tr>
-        @foreach ($products as $product )
+        @foreach ($Carts as $Cart )
         <tr>
             <td>{{$loop->index + 1}}</td>
-            <td>{{$product->code}}</td>
-            <td>{{$product->name}}</td>
-            <td style="text-align: right;">Rp.{{ number_format($product->price,0,',','.') }} </td>
-            <td>{{$product->category}}</td>
-            <td>
-                <img src="{{ asset($product->photo) }}" alt="{{ $product->name }}" style="width: 100px; height: 100px">
-            </td>
+            <td>{{$Cart->code}}</td>
+            <td>{{$Cart->product_id}}</td>
+            <td>{{$Cart->paid}}</td>
+          
             <td>
                 <a href="/admin/product/{{$product->id}}/edit" class="btn btn-info">Edit</a>
             </td>

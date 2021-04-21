@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\ProductController;
 //use App\Http\Controllers\Admin\ProductionController;
+use App\Http\Controllers\CartsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,5 +49,7 @@ Route::get('/cart', function(){
 });
 
 Route::get('/product',[ProductController::class, 'index']);
+Route::post('/add-to-card',[CartsController::class, 'store']);
+Route::get('/carts',[CartsController::class, 'index']);
 
 Route::resource('/admin/product', 'App\Http\Controllers\Admin\ProductController');

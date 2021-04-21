@@ -45,6 +45,7 @@ class ProductController extends Controller
             'code'=>'required|numeric',
             'name'=>'required',
             'kategori'=>'required',
+            'price'=>'required|numeric',
             'photo' => 'required|image|mimes:png,jpg,jpeg'
         ]);
 
@@ -58,6 +59,7 @@ class ProductController extends Controller
             'code'=> request('code'),
             'name'=> request('name'),
             'category'=> request('kategori'),
+            'price'=> request('price'),
             'photo' =>'images/'. $imageName
         ]);
 
@@ -103,6 +105,7 @@ class ProductController extends Controller
             'code' => 'required|numeric',
             'name' => 'required',
             'category' =>'required',
+            'price' => 'required|numeric',
         ]);
 
         $product = Product::where( 'id', $id )->first();
@@ -122,6 +125,7 @@ class ProductController extends Controller
             'code'=> request('code'),
             'name'=> request('name'),
             'category'=> request('category'),
+            'price' => request('price'),
             'photo'=> isset($path) ? 'images/' . $imageName : $product->photo
         ]);
 

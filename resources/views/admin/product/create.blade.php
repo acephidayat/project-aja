@@ -23,6 +23,10 @@
         <input type="text" name="kategori" class="form-control" value="{{ old('kategori') }} ">
     </div>
     <div class="mb-3">
+        <label for="form-label">Price</label>
+        <input type="number" name="price" class="form-control" value=" {{ old('price') }}">
+    </div>
+    <div class="mb-3">
         <label class="form-label">Photo</label>
         <input type="file" name="photo" class="form-control">
     </div>

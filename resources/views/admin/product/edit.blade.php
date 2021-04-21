@@ -24,10 +24,10 @@
         <label for="form-label">Category</label>
         <input type="text" name="category" class="form-control" value=" {{ $product->category }}">
     </div>
-    {{-- <div class="mb-3">
-        <label for="form-label">Photo</label>
-        <input type="text" name="code" class="form-control">
-    </div> --}}
+    <div class="mb-3">
+        <label for="form-label">Price</label>
+        <input type="number" name="price" class="form-control" value=" {{ $product->price }}">
+    </div>
     <img src="{{ asset($product->photo) }}" alt="{{ $product->name }}" style="width: 100px; height:100px">
     <div class="mb-3">
         <label class="form-label">Photo</label>
