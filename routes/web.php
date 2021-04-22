@@ -2,6 +2,7 @@
 use App\Http\Controllers\ProductController;
 //use App\Http\Controllers\Admin\ProductionController;
 use App\Http\Controllers\CartsController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,22 +35,27 @@ Route::get('/', function () {
      return view('welcome');
 } );
 
-Route::get('/cart', function(){
-    $sosis =['Sosis Sapi','Sosis Ayam','Sosis Origial'];
-    $nama = request('nama');
-    $umur = request('umur');
-    $jadwal ='tidak masuk';
+// Route::get('/cart', function(){
+//     $sosis =['Sosis Sapi','Sosis Ayam','Sosis Origial'];
+//     $nama = request('nama');
+//     $umur = request('umur');
+//     $jadwal ='tidak masuk';
 
-    return view ('cart',[
-        'sosis'=> $sosis,
-        'nama'=> $nama,
-        'umur'=> $umur,
-        'jadwal'=> $jadwal
-    ]);
-});
+//     return view ('cart',[
+//         'sosis'=> $sosis,
+//         'nama'=> $nama,
+//         'umur'=> $umur,
+//         'jadwal'=> $jadwal
+//     ]);
+// });
 
 Route::get('/product',[ProductController::class, 'index']);
-Route::post('/add-to-card',[CartsController::class, 'store']);
+
+//cart
 Route::get('/carts',[CartsController::class, 'index']);
+Route::post('/add-to-card',[CartsController::class, 'store']);
+Route::delete('/remove-cart/{id}', [CartsController::class, 'destroy']);
+Route::post('/payment', [PaymentController::class, 'store']);
+
 
 Route::resource('/admin/product', 'App\Http\Controllers\Admin\ProductController');

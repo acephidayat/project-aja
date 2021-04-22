@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h1>Cart</h1>
+    <h1>Carts</h1>
     <table class="table table-bordered table-striped table-hover">
         <tr>
             <th>#</th>

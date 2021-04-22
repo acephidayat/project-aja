@@ -12,16 +12,16 @@ class CartsController extends Controller
         $carts = Carts::where('paid', false)->get()->groupBy('product_id');
 
         $prices = $carts->map(function ($row) {
-            return $row->reduce(function ($item, $cart) {
-                return $cart->product->price + $item;
+            return $row->reduce(function ($item, $carts) {
+                return $carts->product->price + $item;
             });
         });
 
-        $sub_total = $prices->reduce(function ($item, $cart) {
-            return $cart + $item;
+        $sub_total = $prices->reduce(function ($item, $carts) {
+            return $carts + $item;
         });
 
-        return view('cart.index', [
+        return view('carts.index', [
             'carts' => $carts,
             'sub_total' => $sub_total
         ]);

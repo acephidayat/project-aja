@@ -14,7 +14,7 @@
 					<img src="{{ asset($product->photo) }}" alt="{{ $product->name }}" style="height: 300px; width: 100%;" class="bd-placeholder-img card-img-top" />
 
 					<div class="card-body">
-						<p class="card-text">{{ $product->code }} - {{ $product->name }}</p>
+						<p class="card-text"> {{ $product->code }} - {{ $product->name }} </p>
 						<div class="d-flex justify-content-between align-items-center">
 							<small class="text-muted">Rp. {{ number_format($product->price, 0, ',', '.') }}</small>
 							<form action="/add-to-card" method="POST">
