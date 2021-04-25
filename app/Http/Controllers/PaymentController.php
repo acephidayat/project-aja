@@ -12,7 +12,7 @@ class PaymentController extends Controller
 {
     public function __construct()
     {
-        Config::$serverKey = 'SB-Mid-server-x4SeFOgglJnx3-mLJiOFYdDf';
+        Config::$serverKey = env('MIDTRANS_KEY');
         Config::$isProduction = false;
         config::$isSanitized = true;
         Config::$is3ds= true;

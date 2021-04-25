@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facedas\Mail;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\PaymentSuccessMail;
 use App\Models\Carts;
+
 
 class MidtransNotificationHandlerController extends Controller
 {
@@ -81,7 +80,7 @@ class MidtransNotificationHandlerController extends Controller
 
 
     public function handleSuccessPayment($payload)
-    {
+    { 
         $transaction = Transaction::where('order_id', $payload['order_id'])->first();
 
         $transaction->update([
