@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+
+use App\Models\Carts;
 use App\Models\Transaction;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PaymentSuccessMail;
-use App\Models\Carts;
-
+use Illuminate\Support\Facades\Log;
 
 class MidtransNotificationHandlerController extends Controller
 {
